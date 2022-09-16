@@ -20,12 +20,12 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{userId}")
-    public User getUserById(@PathVariable  Integer userId) throws UserNotFoundException {
+    public User getUserById(@PathVariable Integer userId) throws UserNotFoundException {
         return userService.getUserById(userId);
     }
 
     @PostMapping
-    public User createUser(@Valid @RequestBody User user) {
+    public User register(@Valid @RequestBody User user) {
         return userService.createUser(user);
     }
 }
