@@ -1,18 +1,23 @@
 package ar.edu.unq.desapp.grupoj.desapp.model;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "app_user")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
     @NotNull
@@ -44,5 +49,4 @@ public class User {
     @Column(unique = true)
     @Length(min = 8, max = 8)
     private String cripto;
-
 }
