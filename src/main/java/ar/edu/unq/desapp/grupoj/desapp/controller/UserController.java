@@ -2,6 +2,8 @@ package ar.edu.unq.desapp.grupoj.desapp.controller;
 
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.User;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginRequest;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginResponse;
 import ar.edu.unq.desapp.grupoj.desapp.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,13 +21,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/{userId}")
-    public User getUserById(@PathVariable Integer userId) throws UserNotFoundException {
-        return userService.getUserById(userId);
+    @GetMapping
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) throws UserNotFoundException {
+        return userService.login(loginRequest);
     }
 
     @PostMapping
     public User register(@Valid @RequestBody User user) {
-        return userService.createUser(user);
+        return userService.register(user);
     }
 }
