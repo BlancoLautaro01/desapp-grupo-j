@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoj.desapp.model;
+package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
@@ -16,32 +16,32 @@ public class Offer {
 
     @NotNull
     @Column
-    private Criptocurrency criptocurrency;
+    private String cryptocurrency;
 
     @NotNull
     @Column
     @Min(0)
-    private Double amount;
+    private Double cryptocurrencyAmount;
 
     @NotNull
     @Column
     @Min(0)
-    private Double price;
+    private Double cryptocurrencyPrice;
+
+    @NotNull
+    @Column
+    @Min(0)
+    private Double arsAmount;
 
     @JoinColumn
     @ManyToOne
     private User user;
 
     @Column
-    private OfferType type;
+    private Integer typeId;
 
     @Column
-    private OfferState state;
-
-    public Double getArgValue() {
-//        return this.criptocurrency.getPrice() * this.amount;
-        return 0.0;
-    }
+    private Integer stateId;
 
     public String getUser() {
         return user.getName() + " " + user.getSurname();

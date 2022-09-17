@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoj.desapp.controller;
 
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
-import ar.edu.unq.desapp.grupoj.desapp.model.User;
+import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import ar.edu.unq.desapp.grupoj.desapp.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,35 +1,54 @@
 package ar.edu.unq.desapp.grupoj.desapp.factories;
 
-import ar.edu.unq.desapp.grupoj.desapp.model.User;
-import com.sun.istack.NotNull;
-import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
+import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 
 public class UserFactory {
-
-    private Integer defaultUserId;
-
-    private String defaultName;
-
-    private String defaultSurname;
-
-    private String defaultPassword;
-
-    private String defaultEmail;
-
-    private String defaultAddress;
-
-    private String defaultCVU;
-
-    private String defaultCrypto;
-
-    private User createUser( Integer defaultUserId, String defaultName, String defaultSurname, String defaultPassword, String defaultEmail, String defaultAddress, String defaultCVU, String defaultCrypto){
-        return new User()
+    public static User anyUserWithName(String name) {
+        User user = new User();
+        user.setName(name);
+        return user;
     }
 
-    static User anyUserWithName
+    public static User anyUserWithSurname(String surname) {
+        User user = new User();
+        user.setSurname(surname);
+        return user;
+    }
+
+    public static User anyUserWithPassword(String password) {
+        User user = new User();
+        user.setPassword(password);
+        return user;
+    }
+
+    public static User anyUserWithEmail(String email) {
+        User user = new User();
+        user.setEmail(email);
+        return user;
+    }
+
+    public static User anyUserWithAddress(String address) {
+        User user = new User();
+        user.setAddress(address);
+        return user;
+    }
+
+    public static User anyUserWithCVU(String cvu) {
+        User user = new User();
+        user.setCvu(cvu);
+        return user;
+    }
+
+    public static User anyUserWithCryptoWallet(String cryptoWallet) {
+        User user = new User();
+        user.setCryptoWallet(cryptoWallet);
+        return user;
+    }
+
+    public static User anyUserWithId(Integer id) {
+        User user = new User();
+        user.setUserId(id);
+        return user;
+    }
 }
