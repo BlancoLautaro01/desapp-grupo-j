@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoj.desapp.model;
+package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -46,5 +47,5 @@ public class User {
 
     @Column(unique = true, nullable = false)
     @Pattern(regexp = "^\\d{8}", message = "Crypto Wallet Address length must be of 8 digits")
-    private String crypto;
+    private String cryptoWallet;
 }
