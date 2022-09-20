@@ -48,4 +48,14 @@ public class User {
     @Column(unique = true, nullable = false)
     @Pattern(regexp = "^\\d{8}", message = "Crypto Wallet Address length must be of 8 digits")
     private String cryptoWallet;
+
+    @Column(nullable = false)
+    private Integer operationAmount = 0;
+
+    @Column(nullable = false)
+    private Integer score = 0;
+
+    public Double getReputation() {
+        return (double) (this.score / this.operationAmount);
+    }
 }
