@@ -3,6 +3,9 @@ package ar.edu.unq.desapp.grupoj.desapp.service;
 import ar.edu.unq.desapp.grupoj.desapp.UserRepository;
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginRequest;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginResponse;
+import ar.edu.unq.desapp.grupoj.desapp.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +13,19 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    public User getUserById(Integer userId) throws UserNotFoundException {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Invalid UserId"));
+    @Autowired
+    private JWTUtil jwtUtil;
+
+    public LoginResponse login(LoginRequest loginRequest) throws UserNotFoundException {
+        User user = userRepository.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword())
+                .orElseThrow(() -> new UserNotFoundException("Invalid Email or Password"));
+
+        return new LoginResponse(user.getName(), jwtUtil.getJWTToken(user.getName()));
     }
 
-    public User createUser(User userRequest) {
+    public User register(User userRequest) {
         return userRepository.save(userRequest);
     }
 }

@@ -33,7 +33,7 @@ public class User {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\\-]]).{6,}$", message = "Password must contain at least 1 lowercase, 1 uppercase, 1 special character and a minimum of 6 characters")
     private String password;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     @Email(message = "Invalid email")
     private String email;
 
@@ -48,4 +48,16 @@ public class User {
     @Column(unique = true, nullable = false)
     @Pattern(regexp = "^\\d{8}", message = "Crypto Wallet Address length must be of 8 digits")
     private String cryptoWallet;
+
+    @Column(nullable = false)
+    private Integer operationAmount = 0;
+
+    @Column(nullable = false)
+    private Integer score = 0;
+
+    public Double getReputation() {
+        return (this.operationAmount == 0
+                ? 0
+                : (double) (this.score / this.operationAmount));
+    }
 }

@@ -35,9 +35,14 @@ public class UserTest {
         String address = "AValidAddress";
         String cvu = "1234567891234567891234";
         String cryptoWallet = "12345678";
+        Integer operationAmount = 4;
+        Integer score = 2;
 
-        User user = new User(userId, name, surname, password, email, address, cvu, cryptoWallet);
 
+        User user = UserFactory.createUser(userId, name, surname, password, email, address, cvu, cryptoWallet, operationAmount, score);
+
+
+        assertIsValidUser(user);
         assertEquals(user.getUserId(), userId);
         assertEquals(user.getName(), name);
         assertEquals(user.getSurname(), surname);
@@ -46,6 +51,8 @@ public class UserTest {
         assertEquals(user.getAddress(), address);
         assertEquals(user.getCvu(), cvu);
         assertEquals(user.getCryptoWallet(), cryptoWallet);
+        assertEquals(user.getOperationAmount(), operationAmount);
+        assertEquals(user.getScore(), score);
     }
 
     @Test
@@ -248,6 +255,24 @@ public class UserTest {
 
         assertIsValidUser(user);
         assertEquals(user.getCryptoWallet(), validCryptoWallet);
+    }
+
+    @Test
+    public void whenTheUserHadNoOperations_theUserReputationIs0() {
+        Double expectedUserReputation = 0.0;
+        User user = UserFactory.anyUserWithOperationsAmountAndScore(0,0);
+
+        assertEquals(expectedUserReputation, user.getReputation());
+    }
+
+    @Test
+    public void theUserReputationIsTheDivisionOfTheScoreAndTheAmountOfOperations() {
+        Integer operationsAmount = 2;
+        Integer score = 4;
+        Double expectedUserReputation = Double.valueOf(score / operationsAmount);
+        User user = UserFactory.anyUserWithOperationsAmountAndScore(operationsAmount, score);
+
+        assertEquals(expectedUserReputation, user.getReputation());
     }
 
     private void assertIsNotValidUserWith( String expectedErrorMessage, User user) {

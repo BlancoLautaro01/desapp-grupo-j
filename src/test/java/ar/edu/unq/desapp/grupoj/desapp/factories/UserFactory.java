@@ -51,4 +51,16 @@ public class UserFactory {
         user.setUserId(id);
         return user;
     }
-}
+
+    public static User createUser(Integer userId, String name, String surname, String password, String email, String address, String cvu, String cryptoWallet, Integer operationAmount, Integer score) {
+        User user = new User(userId, name, surname, password, email, address, cvu, cryptoWallet, operationAmount, score);
+        return user;
+    }
+
+    public static User anyUserWithOperationsAmountAndScore(Integer operationsAmount, Integer score) {
+        User user = new User();
+        user.setOperationAmount(operationsAmount);
+        user.setScore(score);
+        return user;
+    }
+ }
