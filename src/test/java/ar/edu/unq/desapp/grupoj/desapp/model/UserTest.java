@@ -269,7 +269,7 @@ public class UserTest {
     public void theUserReputationIsTheDivisionOfTheScoreAndTheAmountOfOperations() {
         Integer operationsAmount = 2;
         Integer score = 4;
-        Double expectedUserReputation = Double.valueOf(score / operationsAmount);
+        Double expectedUserReputation = (double) (score / operationsAmount);
         User user = UserFactory.anyUserWithOperationsAmountAndScore(operationsAmount, score);
 
         assertEquals(expectedUserReputation, user.getReputation());
