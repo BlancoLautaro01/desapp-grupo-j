@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
-import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;

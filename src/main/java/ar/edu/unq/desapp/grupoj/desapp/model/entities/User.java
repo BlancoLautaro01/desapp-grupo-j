@@ -33,7 +33,7 @@ public class User {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\\-]]).{6,}$", message = "Password must contain at least 1 lowercase, 1 uppercase, 1 special character and a minimum of 6 characters")
     private String password;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     @Email(message = "Invalid email")
     private String email;
 
@@ -56,6 +56,8 @@ public class User {
     private Integer score = 0;
 
     public Double getReputation() {
-        return (double) (this.score / this.operationAmount);
+        return (this.operationAmount == 0
+                ? 0
+                : (double) (this.score / this.operationAmount));
     }
 }

@@ -24,12 +24,12 @@ public class Transaction {
     @Column(nullable = false)
     private Integer stateId;
 
-    public String getDepositAddress() throws Exception {
-        if(offer.getOfferType() == OfferType.BUY) {
-            return user.getCvu();
-        } else {
-            return offer.getUser().getCvu();
-        }
-    }
+//    public String getDepositAddress() throws Exception {
+//        if(offer.getOfferType() == OfferType.BUY) {
+//            return user.getCvu();
+//        } else {
+//            return offer.getUser().getCvu();
+//        }
+//    }
 
 }

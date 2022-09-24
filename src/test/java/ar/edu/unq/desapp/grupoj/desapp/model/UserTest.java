@@ -35,9 +35,14 @@ public class UserTest {
         String address = "AValidAddress";
         String cvu = "1234567891234567891234";
         String cryptoWallet = "12345678";
+        Integer operationAmount = 4;
+        Integer score = 2;
 
-        User user = new User(userId, name, surname, password, email, address, cvu, cryptoWallet);
 
+        User user = UserFactory.createUser(userId, name, surname, password, email, address, cvu, cryptoWallet, operationAmount, score);
+
+
+        assertIsValidUser(user);
         assertEquals(user.getUserId(), userId);
         assertEquals(user.getName(), name);
         assertEquals(user.getSurname(), surname);
@@ -46,6 +51,8 @@ public class UserTest {
         assertEquals(user.getAddress(), address);
         assertEquals(user.getCvu(), cvu);
         assertEquals(user.getCryptoWallet(), cryptoWallet);
+        assertEquals(user.getOperationAmount(), operationAmount);
+        assertEquals(user.getScore(), score);
     }
 
     @Test
@@ -57,199 +64,230 @@ public class UserTest {
     }
     @Test
     public void anUserCantHaveANameWithLessThan3Characters() {
+        String expectedErrorMessage = "The name must have a minimum of 3 and a maximum of 30 characters";
         String invalidName = "I";
-        User user = UserFactory.anyUserWithName(invalidName);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithName(invalidName);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
     @Test
     public void anUserCantHaveANameWithMoreThan30Characters() {
+        String expectedErrorMessage = "The name must have a minimum of 3 and a maximum of 30 characters";
         String invalidName = "ThisNameHaveMoreThanThirtyCharacters";
-        User user = UserFactory.anyUserWithName(invalidName);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithName(invalidName);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void whenCreateAUserWithAValidName() {
         String validName = "ValidName";
         User user = UserFactory.anyUserWithName(validName);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
 
-        assertTrue(violations.isEmpty());
+        assertIsValidUser(user);
         assertEquals(user.getName(), validName);
     }
 
     @Test
     public void anUserCantHaveASurnameWithLessThan3Characters() {
+        String expectedErrorMessage = "The surname must have a minimum of 3 and a maximum of 30 characters";
         String invalidSurname = "I";
-        User user = UserFactory.anyUserWithSurname(invalidSurname);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithSurname(invalidSurname);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
     @Test
     public void anUserCantHaveASurnameWithMoreThan30Characters() {
+        String expectedErrorMessage = "The surname must have a minimum of 3 and a maximum of 30 characters";
         String invalidSurname = "ThisSurnameHaveMoreThanThirtyCharacters";
-        User user = UserFactory.anyUserWithSurname(invalidSurname);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithSurname(invalidSurname);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void whenCreateAUserWithAValidSurname() {
         String validSurname = "ValidSurname";
         User user = UserFactory.anyUserWithSurname(validSurname);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
 
-        assertTrue(violations.isEmpty());
+        assertIsValidUser(user);
         assertEquals(user.getSurname(), validSurname);
     }
 
     @Test
     public void anUserCantHaveAPasswordWithLessThan6Characters() {
+        String expectedErrorMessage = "Password must contain at least 1 lowercase, 1 uppercase, 1 special character and a minimum of 6 characters";
         String invalidPassword = "I";
-        assertIsInvalidPassword(invalidPassword);
+        User invalidUser = UserFactory.anyUserWithPassword(invalidPassword);
+
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void anUserCantHaveAPasswordWithoutASpecialCharacter() {
+        String expectedErrorMessage = "Password must contain at least 1 lowercase, 1 uppercase, 1 special character and a minimum of 6 characters";
         String invalidPassword = "WithoutASpecialCharacter";
-        assertIsInvalidPassword(invalidPassword);
+        User invalidUser = UserFactory.anyUserWithPassword(invalidPassword);
+
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void anUserCantHaveAPasswordWithoutALowerCase() {
+        String expectedErrorMessage = "Password must contain at least 1 lowercase, 1 uppercase, 1 special character and a minimum of 6 characters";
         String invalidPassword = "WITHOUTALOWERCASE!!!";
-        assertIsInvalidPassword(invalidPassword);
+        User invalidUser = UserFactory.anyUserWithPassword(invalidPassword);
+
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void anUserCantHaveAPasswordWithoutACapitalLetter() {
+        String expectedErrorMessage = "Password must contain at least 1 lowercase, 1 uppercase, 1 special character and a minimum of 6 characters";
         String invalidPassword = "withoutascapitalletter!!!";
-        assertIsInvalidPassword(invalidPassword);
+        User invalidUser = UserFactory.anyUserWithPassword(invalidPassword);
+
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void whenCreateAUserWithAValidPassword() {
         String validPassword = "ValidPassword!";
         User user = UserFactory.anyUserWithPassword(validPassword);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
 
+        assertIsValidUser(user);
         assertEquals(user.getPassword(), validPassword);
-        assertTrue(violations.isEmpty());
     }
 
     @Test
     public void anUserCantHaveAEmailWithoutEmailFormat() {
+        String expectedErrorMessage = "Invalid email";
         String invalidEmail = "invalidemail!!!";
-        User user = UserFactory.anyUserWithEmail(invalidEmail);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithEmail(invalidEmail);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void whenCreateAUserWithValidEmailFormat() {
         String validEmail = "validemail@hotmail.com";
         User user = UserFactory.anyUserWithEmail(validEmail);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
 
+        assertIsValidUser(user);
         assertEquals(user.getEmail(), validEmail);
-        assertTrue(violations.isEmpty());
     }
 
     @Test
     public void anUserCantHaveAAddressWithLessThan10Characters() {
+        String expectedErrorMessage = "The address must have a minimum of 10 and a maximum of 30 characters";
         String invalidAddress = "NineChars";
-        User user = UserFactory.anyUserWithAddress(invalidAddress);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithAddress(invalidAddress);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
     @Test
     public void anUserCantHaveAnAddressWithMoreThan30Characters() {
+        String expectedErrorMessage = "The address must have a minimum of 10 and a maximum of 30 characters";
         String invalidName = "ThisNameHaveMoreThanThirtyCharacters";
-        User user = UserFactory.anyUserWithAddress(invalidName);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithAddress(invalidName);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void whenCreateAUserWithAValidAddress() {
         String validAddress = "ValidAddress";
         User user = UserFactory.anyUserWithAddress(validAddress);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
 
-        assertTrue(violations.isEmpty());
+        assertIsValidUser(user);
         assertEquals(user.getAddress(), validAddress);
     }
 
     @Test
     public void anUserCantHaveACVUWithLessThan22Digits() {
+        String expectedErrorMessage = "Mercado Pago CVU length must be of 22 digits";
         String invalidCVU = "123213";
-        User user = UserFactory.anyUserWithCVU(invalidCVU);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithCVU(invalidCVU);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void anUserCantHaveACVUWithMoreThan22Digits() {
+        String expectedErrorMessage = "Mercado Pago CVU length must be of 22 digits";
         String invalidCVU = "12345678912345678912345";
-        User user = UserFactory.anyUserWithCVU(invalidCVU);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithCVU(invalidCVU);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void whenCreateAUserWithAValidCVU() {
         String validCVU = "1234567891234567891234";
         User user = UserFactory.anyUserWithCVU(validCVU);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
 
-        assertTrue(violations.isEmpty());
+        assertIsValidUser(user);
         assertEquals(user.getCvu(), validCVU);
     }
 
     @Test
     public void anUserCantHaveACryptoWalletWithLessThan8Digits() {
+        String expectedErrorMessage = "Crypto Wallet Address length must be of 8 digits";
         String invalidCryptoWallet = "1234567";
-        User user = UserFactory.anyUserWithCryptoWallet(invalidCryptoWallet);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithCryptoWallet(invalidCryptoWallet);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void anUserCantHaveACryptoWalletWithMoreThan9Digits() {
+        String expectedErrorMessage = "Crypto Wallet Address length must be of 8 digits";
         String invalidCryptoWallet = "123456789";
-        User user = UserFactory.anyUserWithCryptoWallet(invalidCryptoWallet);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        User invalidUser = UserFactory.anyUserWithCryptoWallet(invalidCryptoWallet);
 
-        assertFalse(violations.isEmpty());
+        assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
 
     @Test
     public void whenCreateAUserWithAValidCryptoWallet() {
         String validCryptoWallet = "12345678";
         User user = UserFactory.anyUserWithCryptoWallet(validCryptoWallet);
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
 
-        assertTrue(violations.isEmpty());
+        assertIsValidUser(user);
         assertEquals(user.getCryptoWallet(), validCryptoWallet);
     }
 
+    @Test
+    public void whenTheUserHadNoOperations_theUserReputationIs0() {
+        Double expectedUserReputation = 0.0;
+        User user = UserFactory.anyUserWithOperationsAmountAndScore(0,0);
 
-    private void assertIsInvalidPassword( String invalidPassword) {
-        User user = UserFactory.anyUserWithPassword(invalidPassword);
+        assertEquals(expectedUserReputation, user.getReputation());
+    }
+
+    @Test
+    public void theUserReputationIsTheDivisionOfTheScoreAndTheAmountOfOperations() {
+        Integer operationsAmount = 2;
+        Integer score = 4;
+        Double expectedUserReputation = Double.valueOf(score / operationsAmount);
+        User user = UserFactory.anyUserWithOperationsAmountAndScore(operationsAmount, score);
+
+        assertEquals(expectedUserReputation, user.getReputation());
+    }
+
+    private void assertIsNotValidUserWith( String expectedErrorMessage, User user) {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
-        assertFalse(violations.isEmpty());
+        String errorMessage = "";
+        for (ConstraintViolation<User> violation : violations) {
+            errorMessage += violation.getMessage();
+        }
+        assertEquals(expectedErrorMessage, errorMessage);
+    }
+
+    private void assertIsValidUser(User user) {
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+
+        assertTrue(violations.isEmpty());
     }
 }

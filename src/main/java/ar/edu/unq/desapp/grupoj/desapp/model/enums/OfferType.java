@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.enums;
 
-
 public enum OfferType {
 
     SELL(1),
