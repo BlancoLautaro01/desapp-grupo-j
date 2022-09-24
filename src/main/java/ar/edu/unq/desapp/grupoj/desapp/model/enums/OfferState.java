@@ -5,7 +5,7 @@ public enum OfferState {
     FINISHED(2),
     CANCEL(3);
 
-    private Integer offerStateID;
+    private final Integer offerStateID;
 
     OfferState(Integer offerStateID){
         this.offerStateID = offerStateID;

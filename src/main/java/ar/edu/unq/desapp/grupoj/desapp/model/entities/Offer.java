@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
+import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
 import com.sun.istack.NotNull;
 import lombok.Data;
 
@@ -14,22 +15,18 @@ public class Offer {
     @Id
     private Integer offerId;
 
-    @NotNull
-    @Column
+    @Column(nullable = false)
     private String cryptocurrency;
 
-    @NotNull
-    @Column
+    @Column(nullable = false)
     @Min(0)
     private Double cryptocurrencyAmount;
 
-    @NotNull
-    @Column
+    @Column(nullable = false)
     @Min(0)
     private Double cryptocurrencyPrice;
 
-    @NotNull
-    @Column
+    @Column(nullable = false)
     @Min(0)
     private Double arsAmount;
 
@@ -37,13 +34,13 @@ public class Offer {
     @ManyToOne
     private User user;
 
-    @Column
+    @Column(nullable = false)
     private Integer typeId;
 
-    @Column
+    @Column(nullable = false)
     private Integer stateId;
 
-    public String getUser() {
-        return user.getName() + " " + user.getSurname();
+    public OfferType getOfferType() throws Exception {
+        return OfferType.fromId(this.getTypeId());
     }
 }
