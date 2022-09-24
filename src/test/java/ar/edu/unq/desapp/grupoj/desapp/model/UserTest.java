@@ -38,9 +38,7 @@ public class UserTest {
         Integer operationAmount = 4;
         Integer score = 2;
 
-
         User user = UserFactory.createUser(userId, name, surname, password, email, address, cvu, cryptoWallet, operationAmount, score);
-
 
         assertIsValidUser(user);
         assertEquals(user.getUserId(), userId);
@@ -62,6 +60,7 @@ public class UserTest {
 
         assertEquals(user.getUserId(), id);
     }
+
     @Test
     public void anUserCantHaveANameWithLessThan3Characters() {
         String expectedErrorMessage = "The name must have a minimum of 3 and a maximum of 30 characters";
@@ -70,6 +69,7 @@ public class UserTest {
 
         assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
+
     @Test
     public void anUserCantHaveANameWithMoreThan30Characters() {
         String expectedErrorMessage = "The name must have a minimum of 3 and a maximum of 30 characters";
@@ -96,6 +96,7 @@ public class UserTest {
 
         assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
+
     @Test
     public void anUserCantHaveASurnameWithMoreThan30Characters() {
         String expectedErrorMessage = "The surname must have a minimum of 3 and a maximum of 30 characters";
@@ -185,6 +186,7 @@ public class UserTest {
 
         assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
+
     @Test
     public void anUserCantHaveAnAddressWithMoreThan30Characters() {
         String expectedErrorMessage = "The address must have a minimum of 10 and a maximum of 30 characters";
