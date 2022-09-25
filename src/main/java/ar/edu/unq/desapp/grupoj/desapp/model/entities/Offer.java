@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Min;
 
 @Data
 @Entity
+@AllArgsConstructor
 @Table(name = "offer")
 public class Offer {
 
@@ -42,4 +44,4 @@ public class Offer {
     public OfferType getOfferType() throws Exception {
         return OfferType.fromId(this.getTypeId());
     }
-}
+    }
