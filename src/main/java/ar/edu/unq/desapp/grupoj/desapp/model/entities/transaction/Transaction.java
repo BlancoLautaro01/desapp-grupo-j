@@ -1,5 +1,7 @@
-package ar.edu.unq.desapp.grupoj.desapp.model.entities;
+package ar.edu.unq.desapp.grupoj.desapp.model.entities.transaction;
 
+import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
+import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
 import lombok.Data;
 
@@ -23,6 +25,16 @@ public class Transaction {
 
     @Column(nullable = false)
     private Integer stateId;
+
+    private TransactionState state = new TransactionInitialState(this);
+
+    public String getAction() {
+        return this.state.getAction();
+    }
+
+    public String getDepositAddress() {
+        return this.state.getDepositAddress();
+    }
 
 //    public String getDepositAddress() throws Exception {
 //        if(offer.getOfferType() == OfferType.BUY) {
