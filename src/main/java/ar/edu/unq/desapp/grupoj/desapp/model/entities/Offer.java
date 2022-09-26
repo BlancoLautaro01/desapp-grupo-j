@@ -1,6 +1,8 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
+import ar.edu.unq.desapp.grupoj.desapp.validation.ValidCrypto;
+import ar.edu.unq.desapp.grupoj.desapp.validation.ValidOfferType;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +17,7 @@ public class Offer {
     private Integer offerId;
 
     @Column(nullable = false)
+    @ValidCrypto
     private String cryptocurrency;
 
     @Column(nullable = false)
@@ -34,6 +37,7 @@ public class Offer {
     private User user;
 
     @Column(nullable = false)
+    @ValidOfferType
     private Integer typeId;
 
     @Column(nullable = false)

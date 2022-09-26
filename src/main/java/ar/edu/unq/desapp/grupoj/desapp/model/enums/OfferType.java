@@ -1,5 +1,8 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum OfferType {
 
     SELL(1),
@@ -22,5 +25,14 @@ public enum OfferType {
             default:
                 throw new Exception();
         }
+    }
+
+    public static List<Integer> ids() {
+        List<Integer> ids = new ArrayList<>();
+        for(OfferType type: OfferType.values()) {
+            ids.add(type.getOfferTypeID());
+        }
+
+        return ids;
     }
 }
