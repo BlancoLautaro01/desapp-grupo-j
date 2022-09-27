@@ -16,7 +16,7 @@ public class SwaggerConfig {
     public Docket getBean() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .paths(regex("/test"))
+                .paths(regex("/user"))
                 .build().apiInfo(getInfo());
     }
 

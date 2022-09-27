@@ -26,6 +26,7 @@ public class Transaction {
     @Column(nullable = false)
     private Integer stateId;
 
+    @Transient
     private TransactionState state = new TransactionInitialState(this);
 
     public String getAction() {
@@ -35,13 +36,5 @@ public class Transaction {
     public String getDepositAddress() {
         return this.state.getDepositAddress();
     }
-
-//    public String getDepositAddress() throws Exception {
-//        if(offer.getOfferType() == OfferType.BUY) {
-//            return user.getCvu();
-//        } else {
-//            return offer.getUser().getCvu();
-//        }
-//    }
 
 }
