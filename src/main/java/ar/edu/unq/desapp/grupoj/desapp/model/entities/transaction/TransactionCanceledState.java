@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.entities.transaction;
 
-public class TransactionFinishedState implements TransactionState {
+public class TransactionCanceledState implements TransactionState {
     @Override
     public String getAction() {
         return null;
@@ -8,6 +8,6 @@ public class TransactionFinishedState implements TransactionState {
 
     @Override
     public String getDepositAddress() {
-        return "Transaction Completed.";
+        return "Transaction Canceled.";
     }
 }

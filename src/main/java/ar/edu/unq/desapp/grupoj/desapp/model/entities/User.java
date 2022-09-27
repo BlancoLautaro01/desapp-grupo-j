@@ -58,6 +58,6 @@ public class User {
     public Double getReputation() {
         return (this.operationAmount == 0
                 ? 0
-                : (double) (this.score / this.operationAmount));
+                : ((double) this.score / this.operationAmount));
     }
 }
