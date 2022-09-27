@@ -23,7 +23,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public LoginDto login(@RequestBody LoginRequest loginRequest) throws UserNotFoundException {
+    public LoginDto login(@Valid @RequestBody LoginRequest loginRequest) throws UserNotFoundException {
         return userService.login(loginRequest);
     }
 
