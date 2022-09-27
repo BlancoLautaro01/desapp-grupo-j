@@ -18,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserTest {
+
     private Validator validator;
+
     @BeforeAll
     public void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -62,6 +64,7 @@ public class UserTest {
 
         assertEquals(user.getUserId(), id);
     }
+
     @Test
     public void anUserCantHaveANameWithLessThan3Characters() {
         String expectedErrorMessage = "The name must have a minimum of 3 and a maximum of 30 characters";
@@ -70,6 +73,7 @@ public class UserTest {
 
         assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
+
     @Test
     public void anUserCantHaveANameWithMoreThan30Characters() {
         String expectedErrorMessage = "The name must have a minimum of 3 and a maximum of 30 characters";
@@ -96,6 +100,7 @@ public class UserTest {
 
         assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
+
     @Test
     public void anUserCantHaveASurnameWithMoreThan30Characters() {
         String expectedErrorMessage = "The surname must have a minimum of 3 and a maximum of 30 characters";
@@ -185,6 +190,7 @@ public class UserTest {
 
         assertIsNotValidUserWith(expectedErrorMessage, invalidUser);
     }
+
     @Test
     public void anUserCantHaveAnAddressWithMoreThan30Characters() {
         String expectedErrorMessage = "The address must have a minimum of 10 and a maximum of 30 characters";
@@ -275,7 +281,7 @@ public class UserTest {
         assertEquals(expectedUserReputation, user.getReputation());
     }
 
-    private void assertIsNotValidUserWith( String expectedErrorMessage, User user) {
+    private void assertIsNotValidUserWith(String expectedErrorMessage, User user) {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
         String errorMessage = "";
