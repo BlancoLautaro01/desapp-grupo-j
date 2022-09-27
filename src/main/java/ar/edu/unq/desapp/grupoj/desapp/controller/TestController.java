@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.controller;
 
-import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginResponse;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping
-    public LoginResponse login() {
-        return new LoginResponse("asd", "asd");
+    public LoginDto login() {
+        return new LoginDto("asd", "asd");
     }
 }

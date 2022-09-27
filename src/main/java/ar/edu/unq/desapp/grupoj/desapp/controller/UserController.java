@@ -3,7 +3,7 @@ package ar.edu.unq.desapp.grupoj.desapp.controller;
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginRequest;
-import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginResponse;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginDto;
 import ar.edu.unq.desapp.grupoj.desapp.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public LoginResponse login(@RequestBody LoginRequest loginRequest) throws UserNotFoundException {
+    public LoginDto login(@RequestBody LoginRequest loginRequest) throws UserNotFoundException {
         return userService.login(loginRequest);
     }
 
