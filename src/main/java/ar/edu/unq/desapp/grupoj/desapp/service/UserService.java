@@ -1,19 +1,30 @@
 package ar.edu.unq.desapp.grupoj.desapp.service;
 
-import ar.edu.unq.desapp.grupoj.desapp.UserRepository;
+import ar.edu.unq.desapp.grupoj.desapp.exception.cases.InvalidDateFormatException;
+import ar.edu.unq.desapp.grupoj.desapp.model.entities.transaction.Transaction;
+import ar.edu.unq.desapp.grupoj.desapp.model.enums.CryptoEnum;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.OperatedCryptosDto;
+import ar.edu.unq.desapp.grupoj.desapp.repository.TransactionRepository;
+import ar.edu.unq.desapp.grupoj.desapp.repository.UserRepository;
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
-import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginRequest;
-import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginDto;
-import ar.edu.unq.desapp.grupoj.desapp.model.inout.UserRequest;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.request.LoginRequest;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.LoginDto;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.request.UserRequest;
 import ar.edu.unq.desapp.grupoj.desapp.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -39,5 +50,55 @@ public class UserService {
         );
 
         return userRepository.save(user);
+    }
+
+    public List<OperatedCryptosDto> getOperatedAmount(
+            Integer startDay,
+            Integer startMonth,
+            Integer startYear,
+            Integer endDay,
+            Integer endMonth,
+            Integer endYear) throws InvalidDateFormatException {
+
+        String startDate = this.generateDate(startDay, startMonth, startYear);
+        String endDate = this.generateDate(endDay, endMonth, endYear);
+
+        // TODO: Tenemos que ver como sacar el user loggeado desde el token de autorizacion.
+        User user = new User();
+
+        List<OperatedCryptosDto> result = new ArrayList<>();
+        List<Transaction> userTransactions = transactionRepository.findByUserFinishedBetween(user, startDate, endDate);
+        for(String crypto: CryptoEnum.stringValues()) {
+            Double amount = this.getOperatedAmountByCrypto(crypto, userTransactions);
+            result.add(new OperatedCryptosDto(crypto, amount));
+        }
+
+        return result;
+    }
+
+    private Double getOperatedAmountByCrypto(String crypto, List<Transaction> userTransactions) {
+        // First we filter transactions by crypto.
+        List<Transaction> transactionsByCrypto = new ArrayList<>();
+        for(Transaction transaction: userTransactions) {
+            if(transaction.getOffer().getCryptocurrency().equals(crypto)) {
+                transactionsByCrypto.add(transaction);
+            }
+        }
+
+        // Then sum all amounts.
+        Double res = 0.0;
+        for(Transaction transaction: transactionsByCrypto) {
+            res += transaction.getOffer().getCryptocurrencyAmount();
+        }
+
+        return res;
+    }
+
+    private String generateDate(Integer day, Integer month, Integer year) throws InvalidDateFormatException {
+        if(year.toString().length() != 4 || month.toString().length() != 2 || day.toString().length() != 2) {
+            throw new InvalidDateFormatException();
+        }
+
+        return year + "-" + month + "-" + day;
     }
 }

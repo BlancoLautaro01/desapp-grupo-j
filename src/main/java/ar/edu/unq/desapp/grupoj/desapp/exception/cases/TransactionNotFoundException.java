@@ -2,11 +2,9 @@ package ar.edu.unq.desapp.grupoj.desapp.exception.cases;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor
-public class InvalidJWTException extends Exception {
+public class TransactionNotFoundException extends Exception {
 
     private String message;
 

@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.controller;
 
-import ar.edu.unq.desapp.grupoj.desapp.model.inout.LoginDto;
+import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.LoginDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -6,6 +6,7 @@ import ar.edu.unq.desapp.grupoj.desapp.model.enums.TransactionStateEnum;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -25,6 +26,9 @@ public class Transaction {
 
     @Column(nullable = false)
     private Integer stateId;
+
+    @Column(nullable = false)
+    private String creationDate;
 
     @Transient
     private TransactionState state = this.getTransactionState();

@@ -12,7 +12,7 @@ public class TransactionInitialState implements TransactionState {
 
     @Override
     public String getAction() {
-        return null;
+        return "ARS Payment should be done to the deposit address.";
     }
 
     @Override

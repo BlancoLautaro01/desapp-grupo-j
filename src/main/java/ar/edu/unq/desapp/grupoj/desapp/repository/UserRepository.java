@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoj.desapp;
+package ar.edu.unq.desapp.grupoj.desapp.repository;
 
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import org.springframework.data.repository.CrudRepository;

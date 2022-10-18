@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvalidJWTException extends Exception {
+public class InvalidOfferRequestException extends Exception {
 
     private String message;
 

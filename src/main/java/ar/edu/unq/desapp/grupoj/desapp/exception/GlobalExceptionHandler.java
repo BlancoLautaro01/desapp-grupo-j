@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.exception;
 
-import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
+import ar.edu.unq.desapp.grupoj.desapp.exception.cases.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,34 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleUserNotFound(UserNotFoundException ex) {
         ApiError error = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({ OfferNotFoundException.class })
+    public ResponseEntity<ApiError> handleOfferNotFound(OfferNotFoundException ex) {
+        ApiError error = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({ TransactionNotFoundException.class })
+    public ResponseEntity<ApiError> handleTransactionNotFound(TransactionNotFoundException ex) {
+        ApiError error = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({ InvalidOfferRequestException.class })
+    public ResponseEntity<ApiError> handleInvalidOfferRequestException(InvalidOfferRequestException ex) {
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ InvalidTransactionRequestException.class })
+    public ResponseEntity<ApiError> handleInvalidTransactionRequestException(InvalidTransactionRequestException ex) {
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({ DataIntegrityViolationException.class })

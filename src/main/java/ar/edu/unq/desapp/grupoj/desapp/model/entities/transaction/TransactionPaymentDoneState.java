@@ -12,7 +12,7 @@ public class TransactionPaymentDoneState implements TransactionState {
 
     @Override
     public String getAction() {
-        return null;
+        return "Crypto Payment should released to the deposit address.";
     }
 
     @Override

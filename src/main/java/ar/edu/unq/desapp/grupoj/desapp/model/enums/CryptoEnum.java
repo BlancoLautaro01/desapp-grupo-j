@@ -41,4 +41,18 @@ public enum CryptoEnum {
         return stringValues;
     }
 
+    public static String concatenatedStringValues() {
+        StringBuilder res = new StringBuilder();
+        List<String> stringValues = new ArrayList<>();
+        for(CryptoEnum crypto: CryptoEnum.values()) {
+            stringValues.add(crypto.getName());
+        }
+
+        for(String value: stringValues) {
+            res.append(value).append("/");
+        }
+
+        return res.substring(0, res.length()-1) + ".";
+    }
+
 }
