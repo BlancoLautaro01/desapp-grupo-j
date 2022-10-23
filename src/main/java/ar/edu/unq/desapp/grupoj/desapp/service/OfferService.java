@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoj.desapp.service;
 
-import ar.edu.unq.desapp.grupoj.desapp.config.BinanceClient;
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.InvalidOfferRequestException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
@@ -19,10 +18,10 @@ import java.util.Objects;
 public class OfferService {
 
     @Value("${dolar.ars.value}")
-    private Integer dolarArsValue;
+    private Integer dollarArsValue;
 
     @Autowired
-    private BinanceClient binanceClient;
+    private BinanceService binanceService;
 
     @Autowired
     private OfferRepository offerRepository;
@@ -38,9 +37,8 @@ public class OfferService {
         User user = new User();
 
         // TODO: Este precio hay que buscarlo en Binance con el request.getCrypto().
-        // Double cryptocurrencyPrice = binanceClient.getPrice(request.getCrypto());
-        Double cryptocurrencyPrice = 1.0;
-
+//      Double cryptocurrencyPrice = binanceService.getPrice(offerRequest.getCrypto());
+      Double cryptocurrencyPrice = 1.0;
         this.setMissingProperties(offerRequest, cryptocurrencyPrice);
         Integer typeId = OfferType.valueOf(offerRequest.getType()).getOfferTypeID();
 
@@ -76,10 +74,10 @@ public class OfferService {
 
     private void setMissingProperties(OfferRequest offerRequest, Double cryptocurrencyPrice) {
         if(offerRequest.getArsAmount() == null) {
-            Double arsAmount = (cryptocurrencyPrice * dolarArsValue) * offerRequest.getCryptoAmount();
+            Double arsAmount = (cryptocurrencyPrice * dollarArsValue) * offerRequest.getCryptoAmount();
             offerRequest.setArsAmount(arsAmount);
         } else {
-            Double cryptoAmount = offerRequest.getArsAmount() / (cryptocurrencyPrice * dolarArsValue);
+            Double cryptoAmount = offerRequest.getArsAmount() / (cryptocurrencyPrice * dollarArsValue);
             offerRequest.setArsAmount(cryptoAmount);
         }
     }

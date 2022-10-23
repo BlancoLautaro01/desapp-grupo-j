@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoj.desapp.service;
 
-import ar.edu.unq.desapp.grupoj.desapp.config.BinanceClient;
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.CryptoEnum;
 import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.CryptoValueDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +12,14 @@ import java.util.List;
 public class CryptoService {
 
     @Autowired
-    private BinanceClient binanceClient;
+    private BinanceService binanceService;
 
     public List<CryptoValueDto> getAllPrices() {
         List<String> cryptoNames = CryptoEnum.stringValues();
-        /* TODO: Deberiamos llamar a binance para que nos de las cotizaciones de todos los cryptoactivos
-        y mappear la lista a nuestro objeto List<CryptoValueDto>.
-        */
+        return binanceService.getPrices(cryptoNames);
+    }
 
-        return new ArrayList<>();
+    public Double getPrice(CryptoEnum cryptoEnum) {
+        return binanceService.getPrice( cryptoEnum.getName());
     }
 }
