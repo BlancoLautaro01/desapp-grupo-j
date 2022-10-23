@@ -40,7 +40,8 @@ public class TransactionService {
                 offer,
                 loggedUser,
                 transaction.getState().getAction(),
-                transaction.getState().getDepositAddress());
+                transaction.getState().getDepositAddress()
+        );
     }
 
     private Transaction saveTransaction(Offer offer, User loggedUser) {
@@ -64,6 +65,9 @@ public class TransactionService {
         if(!TransactionStateEnum.stringValues().contains(state)) {
             throw new InvalidTransactionRequestException(
                     "Invalid state. Available values are: INITIATED/PAYMENT_DONE/FINISHED/CANCELED");
+        }
+        if(TransactionStateEnum.valueOf(state) == TransactionStateEnum.FINISHED) {
+            // TODO: Validar que el precio no haya fluctuado.
         }
 
         Integer stateId = TransactionStateEnum.valueOf(state).getTransactionStateID();

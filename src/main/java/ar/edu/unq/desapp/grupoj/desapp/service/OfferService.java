@@ -21,7 +21,7 @@ public class OfferService {
     private Integer dollarArsValue;
 
     @Autowired
-    private BinanceService binanceService;
+    private CryptoService cryptoService;
 
     @Autowired
     private OfferRepository offerRepository;
@@ -36,9 +36,7 @@ public class OfferService {
         // TODO: Tenemos que ver como sacar el user loggeado desde el token de autorizacion.
         User user = new User();
 
-        // TODO: Este precio hay que buscarlo en Binance con el request.getCrypto().
-//      Double cryptocurrencyPrice = binanceService.getPrice(offerRequest.getCrypto());
-      Double cryptocurrencyPrice = 1.0;
+        Double cryptocurrencyPrice = cryptoService.getPrice(offerRequest.getCrypto());
         this.setMissingProperties(offerRequest, cryptocurrencyPrice);
         Integer typeId = OfferType.valueOf(offerRequest.getType()).getOfferTypeID();
 

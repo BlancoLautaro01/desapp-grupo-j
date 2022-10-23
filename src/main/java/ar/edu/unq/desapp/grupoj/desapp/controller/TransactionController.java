@@ -14,7 +14,6 @@ public class TransactionController {
 
     @PostMapping("/start")
     public TransactionDto processTransaction(@RequestParam Integer offerId) throws Exception {
-        // Procesar la transacción informada por un usuario. Primer endpoint Crear Transaccion.
         return transactionService.startTransaction(offerId);
     }
 
@@ -22,7 +21,6 @@ public class TransactionController {
     public TransactionDto changeTransactionState(
             @RequestParam String state,
             @PathVariable Integer transactionId) throws Exception {
-        // Procesar la transacción informada por un usuario. Segundo endpoint Actualizar Estado.
         return transactionService.changeTransactionState(transactionId, state);
     }
 }

@@ -18,7 +18,6 @@ public class CryptoController {
 
     @GetMapping("/getPrices")
     public List<CryptoValueDto> getCryptoPrices() {
-        // Listar cotizacion de criptoactivos.
         return cryptoService.getAllPrices();
     }
 }

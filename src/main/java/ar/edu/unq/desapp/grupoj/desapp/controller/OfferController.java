@@ -19,13 +19,11 @@ public class OfferController {
 
     @GetMapping
     public List<Offer> findAll() {
-        // Construir un listado donde se muestran las intenciones activas de compra/venta
         return offerService.findAll();
     }
 
     @PostMapping
     public Offer createOffer(@Valid @RequestBody OfferRequest offerRequest) throws InvalidOfferRequestException {
-        // Permitir que un usuario exprese su intención de compra/venta
         return offerService.createOffer(offerRequest);
     }
 }
