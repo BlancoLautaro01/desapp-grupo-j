@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,8 +43,7 @@ public class UserController {
             @RequestParam Integer endDay,
             @RequestParam Integer endMonth,
             @RequestParam Integer endYear
-    ) throws InvalidDateFormatException {
-        // Informar al usuario el volumen operado de cripto activos entre dos fechas
+    ) throws InvalidDateFormatException, UserNotFoundException {
         return userService.getOperatedAmount(startDay, startMonth, startYear, endDay, endMonth, endYear);
     }
 }

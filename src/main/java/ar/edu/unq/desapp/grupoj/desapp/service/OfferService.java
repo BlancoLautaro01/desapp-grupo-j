@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoj.desapp.service;
 
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.InvalidOfferRequestException;
+import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.CryptoEnum;
@@ -21,25 +22,27 @@ public class OfferService {
     private Integer dollarArsValue;
 
     @Autowired
-    private BinanceService binanceService;
+    private CryptoService cryptoService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private OfferRepository offerRepository;
 
     public List<Offer> findAll() {
-        return (List<Offer>) offerRepository.findAll();
+        return offerRepository.findAllByStateId(1);
     }
 
-    public Offer createOffer(OfferRequest offerRequest) throws InvalidOfferRequestException {
+    public Offer createOffer(OfferRequest offerRequest) throws InvalidOfferRequestException, UserNotFoundException {
         this.validateRequest(offerRequest);
 
-        // TODO: Tenemos que ver como sacar el user loggeado desde el token de autorizacion.
-        User user = new User();
+        User user = userService.getLoggedUser();
 
-        // TODO: Este precio hay que buscarlo en Binance con el request.getCrypto().
-//      Double cryptocurrencyPrice = binanceService.getPrice(offerRequest.getCrypto());
-      Double cryptocurrencyPrice = 1.0;
+        Double cryptocurrencyPrice = cryptoService.getPrice(offerRequest.getCrypto());
+
         this.setMissingProperties(offerRequest, cryptocurrencyPrice);
+
         Integer typeId = OfferType.valueOf(offerRequest.getType()).getOfferTypeID();
 
         Offer offer = new Offer(
@@ -78,7 +81,7 @@ public class OfferService {
             offerRequest.setArsAmount(arsAmount);
         } else {
             Double cryptoAmount = offerRequest.getArsAmount() / (cryptocurrencyPrice * dollarArsValue);
-            offerRequest.setArsAmount(cryptoAmount);
+            offerRequest.setCryptoAmount(cryptoAmount);
         }
     }
 }

@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -60,4 +59,14 @@ public class User {
                 ? 0
                 : ((double) this.score / this.operationAmount));
     }
+
+    public void sumScore(Integer sum) {
+        this.score += sum;
+    }
+
+    public void substractScore(Integer sub) {
+        this.score += sub;
+    }
+
+    public void sumOperation() { this.operationAmount += 1; }
 }

@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Integer>  {
 
-    @Query(value = "SELECT * FROM transacion " +
-            " WHERE user = :user AND " +
-            " creation_date > :dateStart AND creation_date < :dateEnd", nativeQuery = true)
+    @Query(value = "SELECT t FROM Transaction t " +
+            " WHERE (t.user = :user OR t.offer.user = :user) AND " +
+            " (t.creationDate > :dateStart AND t.creationDate < :dateEnd)")
     List<Transaction> findByUserFinishedBetween(User user, String dateStart, String dateEnd);
 }

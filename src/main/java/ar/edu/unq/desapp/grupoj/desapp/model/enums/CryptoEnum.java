@@ -1,7 +1,5 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.enums;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -16,5 +16,5 @@ public class TransactionDto {
     private Offer offer;
     private User loggedUser;
     private String action;
-    private String actualAddres;
+    private String actualAddress;
 }

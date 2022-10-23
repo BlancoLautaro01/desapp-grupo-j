@@ -2,8 +2,9 @@ package ar.edu.unq.desapp.grupoj.desapp.model.enums;
 
 public enum OfferState {
     ACTIVE(1),
-    FINISHED(2),
-    CANCEL(3);
+    IN_PROGRESS(2),
+    FINISHED(3),
+    CANCEL(4);
 
     private final Integer offerStateID;
 

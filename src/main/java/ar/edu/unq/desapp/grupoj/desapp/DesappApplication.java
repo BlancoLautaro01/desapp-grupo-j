@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DesappApplication {
 
 	public static void main(String[] args) {
+		// TODO: Crear datos de prueba cuando levanta la aplicación.
 		SpringApplication.run(DesappApplication.class, args);
 	}
 

@@ -14,6 +14,7 @@ import java.util.Date;
 public class Transaction {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer transactionId;
 
     @JoinColumn
@@ -25,7 +26,7 @@ public class Transaction {
     private User user;
 
     @Column(nullable = false)
-    private Integer stateId;
+    private Integer stateId = 1;
 
     @Column(nullable = false)
     private String creationDate;

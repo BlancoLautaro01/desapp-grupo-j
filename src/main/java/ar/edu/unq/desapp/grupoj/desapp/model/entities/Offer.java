@@ -2,8 +2,6 @@ package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
 import lombok.AllArgsConstructor;
-import ar.edu.unq.desapp.grupoj.desapp.validation.ValidCrypto;
-import ar.edu.unq.desapp.grupoj.desapp.validation.ValidOfferType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,10 +16,10 @@ import javax.validation.constraints.Min;
 public class Offer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer offerId;
 
     @Column(nullable = false)
-    @ValidCrypto
     private String cryptocurrency;
 
     @Column(nullable = false)
@@ -41,7 +39,6 @@ public class Offer {
     private User user;
 
     @Column(nullable = false)
-    @ValidOfferType
     private Integer typeId;
 
     @Column(nullable = false)
