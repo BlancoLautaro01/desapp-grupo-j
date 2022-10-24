@@ -25,9 +25,11 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private UserService userService;
+
     public TransactionDto startTransaction(Integer offerId) throws Exception {
-        // TODO: Tenemos que ver como sacar el user loggeado desde el token de autorizacion.
-        User loggedUser = new User();
+        User loggedUser = userService.getLoggedUser();
 
         Offer offer = offerRepository.findById(offerId)
                 .orElseThrow(() -> new OfferNotFoundException("Invalid OfferId"));

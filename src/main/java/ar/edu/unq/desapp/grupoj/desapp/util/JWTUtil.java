@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class JWTUtil {
 
-    public String getJWTToken(String username) {
+    public String getJWTToken(String userId) {
         String secretKey = "LautiGonza";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
@@ -21,7 +21,7 @@ public class JWTUtil {
         return Jwts
                 .builder()
                 .setId("DesAppGrupoJ")
-                .setSubject(username)
+                .setSubject(userId)
                 .claim("authorities",
                         grantedAuthorities.stream()
                                 .map(GrantedAuthority::getAuthority)

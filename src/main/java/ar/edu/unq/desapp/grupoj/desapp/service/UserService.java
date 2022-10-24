@@ -13,6 +13,7 @@ import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.LoginDto;
 import ar.edu.unq.desapp.grupoj.desapp.model.inout.request.UserRequest;
 import ar.edu.unq.desapp.grupoj.desapp.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class UserService {
         User user = userRepository.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword())
                 .orElseThrow(() -> new UserNotFoundException("Invalid Email or Password"));
 
-        return new LoginDto(user.getName(), jwtUtil.getJWTToken(user.getName()));
+        return new LoginDto(user.getName(), jwtUtil.getJWTToken(user.getUserId().toString()));
     }
 
     public User register(UserRequest userRequest) {
@@ -58,13 +59,12 @@ public class UserService {
             Integer startYear,
             Integer endDay,
             Integer endMonth,
-            Integer endYear) throws InvalidDateFormatException {
+            Integer endYear) throws InvalidDateFormatException, UserNotFoundException {
 
         String startDate = this.generateDate(startDay, startMonth, startYear);
         String endDate = this.generateDate(endDay, endMonth, endYear);
 
-        // TODO: Tenemos que ver como sacar el user loggeado desde el token de autorizacion.
-        User user = new User();
+        User user = this.getLoggedUser();
 
         List<OperatedCryptosDto> result = new ArrayList<>();
         List<Transaction> userTransactions = transactionRepository.findByUserFinishedBetween(user, startDate, endDate);
@@ -100,5 +100,11 @@ public class UserService {
         }
 
         return year + "-" + month + "-" + day;
+    }
+
+    public User getLoggedUser() throws UserNotFoundException {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        return userRepository.findById(Integer.valueOf(userId))
+                .orElseThrow(() -> new UserNotFoundException("Invalid UserId"));
     }
 }

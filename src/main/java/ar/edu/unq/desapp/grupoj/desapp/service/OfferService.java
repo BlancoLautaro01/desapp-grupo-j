@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoj.desapp.service;
 
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.InvalidOfferRequestException;
+import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.CryptoEnum;
@@ -24,17 +25,19 @@ public class OfferService {
     private CryptoService cryptoService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private OfferRepository offerRepository;
 
     public List<Offer> findAll() {
         return (List<Offer>) offerRepository.findAll();
     }
 
-    public Offer createOffer(OfferRequest offerRequest) throws InvalidOfferRequestException {
+    public Offer createOffer(OfferRequest offerRequest) throws InvalidOfferRequestException, UserNotFoundException {
         this.validateRequest(offerRequest);
 
-        // TODO: Tenemos que ver como sacar el user loggeado desde el token de autorizacion.
-        User user = new User();
+        User user = userService.getLoggedUser();
 
         Double cryptocurrencyPrice = cryptoService.getPrice(offerRequest.getCrypto());
         this.setMissingProperties(offerRequest, cryptocurrencyPrice);

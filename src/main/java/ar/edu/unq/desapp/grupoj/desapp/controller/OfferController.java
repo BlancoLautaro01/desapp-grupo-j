@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoj.desapp.controller;
 
 import ar.edu.unq.desapp.grupoj.desapp.exception.cases.InvalidOfferRequestException;
+import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
 import ar.edu.unq.desapp.grupoj.desapp.model.inout.request.OfferRequest;
 import ar.edu.unq.desapp.grupoj.desapp.service.OfferService;
@@ -23,7 +24,7 @@ public class OfferController {
     }
 
     @PostMapping
-    public Offer createOffer(@Valid @RequestBody OfferRequest offerRequest) throws InvalidOfferRequestException {
+    public Offer createOffer(@Valid @RequestBody OfferRequest offerRequest) throws InvalidOfferRequestException, UserNotFoundException {
         return offerService.createOffer(offerRequest);
     }
 }
