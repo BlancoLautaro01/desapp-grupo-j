@@ -60,4 +60,12 @@ public class User {
                 ? 0
                 : ((double) this.score / this.operationAmount));
     }
+
+    public void sumScore(Integer sum) {
+        this.score += sum;
+    }
+
+    public void substractScore(Integer sub) {
+        this.score += sub;
+    }
 }
