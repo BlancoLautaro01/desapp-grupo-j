@@ -12,8 +12,8 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @PostMapping("/start")
-    public TransactionDto processTransaction(@RequestParam Integer offerId) throws Exception {
+    @PostMapping("/start/{offerId}")
+    public TransactionDto processTransaction(@PathVariable Integer offerId) throws Exception {
         return transactionService.startTransaction(offerId);
     }
 
