@@ -21,11 +21,11 @@ public class InitServiceInMemory {
     @Value("${spring.datasource.driverClassName:NONE}")
     private String className;
 
-    @Autowired
-    private UserRepository userRepository;
-
 //    @Autowired
-//    private UserService userService;
+//    private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @PostConstruct
     public void initialize() {
@@ -36,16 +36,16 @@ public class InitServiceInMemory {
     }
 
     private void fireInitialData() {
-        User user = new User(null,"Pepe", "Pepa", "unaPassw123??", "email@gmail.com","San Martin 185", "1234567891234567891234", "12345678",0,0);
-        User user2 = new User(null,"Samanta", "Quiroga", "unaPassw123??", "email2@gmail.com","San Martin 185", "1234567891234567891234", "12345678",0,0);
-
-        userRepository.save(user);
+//        User user = new User(null,"Pepe", "Pepa", "unaPassw123??", "email@gmail.com","San Martin 185", "1234567891234567891234", "12345678",0,0);
+//        User user2 = new User(null,"Samanta", "Quiroga", "unaPassw123??", "email2@gmail.com","San Martin 185", "1234567891234567891234", "12345678",0,0);
+//
+//        userRepository.save(user);
 //        userRepository.save(user2);
-//        UserRequest user = new UserRequest("Pepe", "Pepa", "unaPassw123??", "email@gmail.com","San Martin 185", "1234567891234567891234", "12345678");
-//        UserRequest user2 = new UserRequest("Samanta", "Quiroga", "unaPassw123??", "email2@gmail.com","San Martin 185", "1234567891234567891234", "12345678");
+        UserRequest user = new UserRequest("Pepe", "Pepa", "unaPassw123?2?", "email@gmail.com","San Martin 183", "1234567891234567891233", "12345673");
+        UserRequest user2 = new UserRequest("Samanta", "Quiroga", "unaPassw123??", "email2@gmail.com","San Martin 185", "1234567891234567891234", "12345678");
 
-//        userService.register(user);
-//        userService.register(user2);
+        userService.register(user);
+        userService.register(user2);
     }
 }
 
