@@ -5,22 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@PropertySource("classpath:application.properties")
-public class UserControllerTest {
+public class CryptoControllerTest {
     private static final String HTTP_LOCALHOST = "http://localhost:";
 
     @LocalServerPort
     private int port;
 
     @Autowired
-    private UserController controller;
+    private CryptoController controller;
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -33,6 +31,6 @@ public class UserControllerTest {
     @Test
     public void getCrytpoValueTest() throws Exception {
         assertThat(this.restTemplate.getForObject(HTTP_LOCALHOST + port + "/crypto/getPrices",
-                String.class)).contains("cryptos");
+                ArrayList.class)).isNotEmpty();
     }
 }
