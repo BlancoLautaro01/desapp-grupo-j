@@ -56,7 +56,7 @@ public class CryptoService {
     }
 
     @Async
-    @Scheduled(cron = "0 */1 * * *")
+    @Scheduled(cron = "0 * * * *")
     public void updateCryptoData() {
         this.saveAllCrypto();
         this.deleteCryptoPast24hr();
