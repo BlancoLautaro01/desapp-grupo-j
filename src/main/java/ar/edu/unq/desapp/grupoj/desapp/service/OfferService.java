@@ -5,7 +5,7 @@ import ar.edu.unq.desapp.grupoj.desapp.exception.cases.UserNotFoundException;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.CryptoEnum;
-import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
+import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferTypeEnum;
 import ar.edu.unq.desapp.grupoj.desapp.model.inout.request.OfferRequest;
 import ar.edu.unq.desapp.grupoj.desapp.repository.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
-@Service 
+@Service
 public class OfferService {
 
     @Value("${dolar.ars.value}")
@@ -43,7 +43,7 @@ public class OfferService {
 
         this.setMissingProperties(offerRequest, cryptocurrencyPrice);
 
-        Integer typeId = OfferType.valueOf(offerRequest.getType()).getOfferTypeID();
+        Integer typeId = OfferTypeEnum.valueOf(offerRequest.getType()).getOfferTypeID();
 
         Offer offer = new Offer(
                 null,

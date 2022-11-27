@@ -6,7 +6,7 @@ import ar.edu.unq.desapp.grupoj.desapp.exception.cases.TransactionNotFoundExcept
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.transaction.Transaction;
-import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferState;
+import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferStateEnum;
 import ar.edu.unq.desapp.grupoj.desapp.model.enums.TransactionStateEnum;
 import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.TransactionDto;
 import ar.edu.unq.desapp.grupoj.desapp.repository.OfferRepository;
@@ -44,7 +44,7 @@ public class TransactionService {
 
         Double actualPrice = cryptoService.getPrice(offer.getCryptocurrency());
         offer.setCryptocurrencyPrice(actualPrice);
-        offer.setStateId(OfferState.IN_PROGRESS.getOfferStateID());
+        offer.setStateId(OfferStateEnum.IN_PROGRESS.getOfferStateID());
         offer.setCryptocurrencyAmount(offer.getArsAmount() / (actualPrice * dollarArsValue));
 
         offerRepository.save(offer);
@@ -108,7 +108,7 @@ public class TransactionService {
                 stateId = TransactionStateEnum.valueOf(state).getTransactionStateID();
                 transaction.setStateId(stateId);
 
-                transaction.getOffer().setStateId(OfferState.CANCEL.getOfferStateID());
+                transaction.getOffer().setStateId(OfferStateEnum.CANCEL.getOfferStateID());
         }
 
         transactionRepository.save(transaction);
@@ -127,12 +127,12 @@ public class TransactionService {
         double limit = marketPrice * 5 / 100;
 
         if(this.getDiff(marketPrice, transaction.getOffer().getCryptocurrencyPrice()) > limit) {
-            transaction.getOffer().setStateId(OfferState.CANCEL.getOfferStateID());
+            transaction.getOffer().setStateId(OfferStateEnum.CANCEL.getOfferStateID());
 
             Integer stateId = TransactionStateEnum.CANCELED.getTransactionStateID();
             transaction.setStateId(stateId);
         } else {
-            transaction.getOffer().setStateId(OfferState.FINISHED.getOfferStateID());
+            transaction.getOffer().setStateId(OfferStateEnum.FINISHED.getOfferStateID());
             this.sumReputationPoints(transaction);
 
             Integer stateId = TransactionStateEnum.FINISHED.getTransactionStateID();

@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.entities;
 
-import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferType;
+import ar.edu.unq.desapp.grupoj.desapp.model.enums.OfferTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,7 +44,7 @@ public class Offer {
     @Column(nullable = false)
     private Integer stateId;
 
-    public OfferType getOfferType() throws Exception {
-        return OfferType.fromId(this.getTypeId());
+    public OfferTypeEnum getOfferType() throws Exception {
+        return OfferTypeEnum.fromId(this.getTypeId());
     }
 }

@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoj.desapp.model.enums;
 
-public enum OfferState {
+public enum OfferStateEnum {
     ACTIVE(1),
     IN_PROGRESS(2),
     FINISHED(3),
@@ -8,7 +8,7 @@ public enum OfferState {
 
     private final Integer offerStateID;
 
-    OfferState(Integer offerStateID){
+    OfferStateEnum(Integer offerStateID){
         this.offerStateID = offerStateID;
     }
 
@@ -16,11 +16,11 @@ public enum OfferState {
         return this.offerStateID;
     }
 
-    public OfferState fromId(Integer offerStateID) throws Exception {
+    public OfferStateEnum fromId(Integer offerStateID) throws Exception {
         switch (offerStateID) {
-            case 1: return OfferState.ACTIVE;
-            case 2: return OfferState.FINISHED;
-            case 3: return OfferState.CANCEL;
+            case 1: return OfferStateEnum.ACTIVE;
+            case 2: return OfferStateEnum.FINISHED;
+            case 3: return OfferStateEnum.CANCEL;
             default:
                 throw new Exception();
         }

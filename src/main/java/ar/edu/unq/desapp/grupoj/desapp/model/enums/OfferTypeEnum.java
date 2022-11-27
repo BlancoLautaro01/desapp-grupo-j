@@ -3,14 +3,14 @@ package ar.edu.unq.desapp.grupoj.desapp.model.enums;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum OfferType {
+public enum OfferTypeEnum {
 
     SELL(1),
     BUY(2);
 
     private final Integer offerTypeID;
 
-    OfferType(Integer offerTypeID){
+    OfferTypeEnum(Integer offerTypeID){
         this.offerTypeID = offerTypeID;
     }
 
@@ -18,10 +18,10 @@ public enum OfferType {
         return this.offerTypeID;
     }
 
-    public static OfferType fromId(Integer offerTypeID) throws Exception {
+    public static OfferTypeEnum fromId(Integer offerTypeID) throws Exception {
         switch (offerTypeID) {
-            case 1: return OfferType.SELL;
-            case 2: return OfferType.BUY;
+            case 1: return OfferTypeEnum.SELL;
+            case 2: return OfferTypeEnum.BUY;
             default:
                 throw new Exception();
         }
@@ -29,7 +29,7 @@ public enum OfferType {
 
     public static List<Integer> ids() {
         List<Integer> ids = new ArrayList<>();
-        for(OfferType type: OfferType.values()) {
+        for(OfferTypeEnum type: OfferTypeEnum.values()) {
             ids.add(type.getOfferTypeID());
         }
 
