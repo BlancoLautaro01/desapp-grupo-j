@@ -7,6 +7,7 @@ import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.CryptoValueDto;
 import ar.edu.unq.desapp.grupoj.desapp.repository.CryptoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ import java.util.List;
 
 @Service
 @Transactional
-@EnableScheduling
 public class CryptoService {
 
     @Autowired
@@ -40,7 +40,7 @@ public class CryptoService {
         return cryptoRepository.findAllCryptoFor(symbol);
     }
 
-    private void saveAllCrypto() {
+    public void saveAllCrypto() {
         List<CryptoValueDto> dtos = this.getAllPrices();
         List<Crypto> cryptos = new ArrayList<>();
         for(CryptoValueDto dto: dtos) {
@@ -55,14 +55,8 @@ public class CryptoService {
         cryptoRepository.saveAll(cryptos);
     }
 
-    private void deleteCryptoPast24hr() {
+    public void deleteCryptoPast24hr() {
         cryptoRepository.deleteCryptoPast24hr(LocalDateTime.now().minusHours(24));
     }
 
-    @Async
-    @Scheduled(cron = "0 0 */1 * * *")
-    public void updateCryptoData() {
-        this.saveAllCrypto();
-        this.deleteCryptoPast24hr();
-    }
 }
