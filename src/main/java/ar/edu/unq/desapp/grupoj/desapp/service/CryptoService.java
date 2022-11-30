@@ -6,10 +6,6 @@ import ar.edu.unq.desapp.grupoj.desapp.model.enums.CryptoEnum;
 import ar.edu.unq.desapp.grupoj.desapp.model.inout.dto.CryptoValueDto;
 import ar.edu.unq.desapp.grupoj.desapp.repository.CryptoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

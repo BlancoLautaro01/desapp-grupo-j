@@ -2,11 +2,9 @@ package ar.edu.unq.desapp.grupoj.desapp.model.entities.transaction;
 
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.Offer;
 import ar.edu.unq.desapp.grupoj.desapp.model.entities.User;
-import ar.edu.unq.desapp.grupoj.desapp.model.enums.TransactionStateEnum;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @Entity

@@ -16,7 +16,6 @@ public class SpringConfig {
     @Scheduled(cron = "0 0 * * * *")
     public void updateCryptoData() {
         cryptoService.saveAllCrypto();
-        System.out.println("Saved");
         cryptoService.deleteCryptoPast24hr();
     }
 }
